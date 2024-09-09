@@ -8,22 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		5CB9E8AD2C8F6B55004B2043 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */; };
-		5CB9E8AF2C8F6B55004B2043 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8AE2C8F6B55004B2043 /* SceneDelegate.swift */; };
-		5CB9E8B12C8F6B55004B2043 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B02C8F6B55004B2043 /* ViewController.swift */; };
-		5CB9E8B42C8F6B55004B2043 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B32C8F6B55004B2043 /* Base */; };
 		5CB9E8B62C8F6B56004B2043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */; };
 		5CB9E8B92C8F6B57004B2043 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B82C8F6B57004B2043 /* Base */; };
+		5CB9E8C32C8F6B87004B2043 /* CanvasItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8C22C8F6B87004B2043 /* CanvasItem.swift */; };
+		5CB9E8C52C8F6BA6004B2043 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8C42C8F6BA6004B2043 /* HomeVC.swift */; };
+		5CB9E8C72C8F6BB2004B2043 /* CanvasPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8C62C8F6BB2004B2043 /* CanvasPageVC.swift */; };
+		5CB9E8CD2C8F6C0E004B2043 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8CC2C8F6C0E004B2043 /* NavigationBar.swift */; };
+		5CB9E8CF2C8F6C19004B2043 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8CE2C8F6C19004B2043 /* TabBar.swift */; };
+		5CB9E8D12C8F6C6A004B2043 /* NewLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8D02C8F6C6A004B2043 /* NewLayerView.swift */; };
+		5CB9E8D42C8F6CA0004B2043 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5CB9E8D32C8F6CA0004B2043 /* SnapKit */; };
+		5CB9E8D82C8F6CB9004B2043 /* CircleButtonWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8D72C8F6CB9004B2043 /* CircleButtonWithText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5CB9E8A92C8F6B55004B2043 /* Canvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5CB9E8AE2C8F6B55004B2043 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5CB9E8B02C8F6B55004B2043 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5CB9E8B32C8F6B55004B2043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CB9E8B82C8F6B57004B2043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CB9E8BA2C8F6B57004B2043 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CB9E8C22C8F6B87004B2043 /* CanvasItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasItem.swift; sourceTree = "<group>"; };
+		5CB9E8C42C8F6BA6004B2043 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		5CB9E8C62C8F6BB2004B2043 /* CanvasPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasPageVC.swift; sourceTree = "<group>"; };
+		5CB9E8CC2C8F6C0E004B2043 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		5CB9E8CE2C8F6C19004B2043 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		5CB9E8D02C8F6C6A004B2043 /* NewLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLayerView.swift; sourceTree = "<group>"; };
+		5CB9E8D72C8F6CB9004B2043 /* CircleButtonWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonWithText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CB9E8D42C8F6CA0004B2043 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +66,51 @@
 		5CB9E8AB2C8F6B55004B2043 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
+				5CB9E8C12C8F6B71004B2043 /* ViewController */,
+				5CB9E8C02C8F6B67004B2043 /* Model */,
 				5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */,
-				5CB9E8AE2C8F6B55004B2043 /* SceneDelegate.swift */,
-				5CB9E8B02C8F6B55004B2043 /* ViewController.swift */,
-				5CB9E8B22C8F6B55004B2043 /* Main.storyboard */,
 				5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */,
 				5CB9E8B72C8F6B57004B2043 /* LaunchScreen.storyboard */,
 				5CB9E8BA2C8F6B57004B2043 /* Info.plist */,
 			);
 			path = Canvas;
+			sourceTree = "<group>";
+		};
+		5CB9E8C02C8F6B67004B2043 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5CB9E8C22C8F6B87004B2043 /* CanvasItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5CB9E8C12C8F6B71004B2043 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5CB9E8C42C8F6BA6004B2043 /* HomeVC.swift */,
+				5CB9E8C82C8F6BB6004B2043 /* Canvas */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		5CB9E8C82C8F6BB6004B2043 /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				5CB9E8C92C8F6BCC004B2043 /* CustomViews */,
+				5CB9E8C62C8F6BB2004B2043 /* CanvasPageVC.swift */,
+			);
+			path = Canvas;
+			sourceTree = "<group>";
+		};
+		5CB9E8C92C8F6BCC004B2043 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				5CB9E8CC2C8F6C0E004B2043 /* NavigationBar.swift */,
+				5CB9E8CE2C8F6C19004B2043 /* TabBar.swift */,
+				5CB9E8D02C8F6C6A004B2043 /* NewLayerView.swift */,
+				5CB9E8D72C8F6CB9004B2043 /* CircleButtonWithText.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +129,9 @@
 			dependencies = (
 			);
 			name = Canvas;
+			packageProductDependencies = (
+				5CB9E8D32C8F6CA0004B2043 /* SnapKit */,
+			);
 			productName = Canvas;
 			productReference = 5CB9E8A92C8F6B55004B2043 /* Canvas.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +160,9 @@
 				Base,
 			);
 			mainGroup = 5CB9E8A02C8F6B54004B2043;
+			packageReferences = (
+				5CB9E8D22C8F6CA0004B2043 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 5CB9E8AA2C8F6B55004B2043 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +179,6 @@
 			files = (
 				5CB9E8B62C8F6B56004B2043 /* Assets.xcassets in Resources */,
 				5CB9E8B92C8F6B57004B2043 /* Base in Resources */,
-				5CB9E8B42C8F6B55004B2043 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +189,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CB9E8B12C8F6B55004B2043 /* ViewController.swift in Sources */,
+				5CB9E8D82C8F6CB9004B2043 /* CircleButtonWithText.swift in Sources */,
+				5CB9E8D12C8F6C6A004B2043 /* NewLayerView.swift in Sources */,
+				5CB9E8C72C8F6BB2004B2043 /* CanvasPageVC.swift in Sources */,
+				5CB9E8C52C8F6BA6004B2043 /* HomeVC.swift in Sources */,
+				5CB9E8CF2C8F6C19004B2043 /* TabBar.swift in Sources */,
 				5CB9E8AD2C8F6B55004B2043 /* AppDelegate.swift in Sources */,
-				5CB9E8AF2C8F6B55004B2043 /* SceneDelegate.swift in Sources */,
+				5CB9E8CD2C8F6C0E004B2043 /* NavigationBar.swift in Sources */,
+				5CB9E8C32C8F6B87004B2043 /* CanvasItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5CB9E8B22C8F6B55004B2043 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5CB9E8B32C8F6B55004B2043 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5CB9E8B72C8F6B57004B2043 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -218,7 +266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -275,7 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -297,7 +345,6 @@
 				INFOPLIST_FILE = Canvas/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -307,6 +354,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RaSoft.Canvas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -325,7 +376,6 @@
 				INFOPLIST_FILE = Canvas/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -335,6 +385,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RaSoft.Canvas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -363,6 +417,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5CB9E8D22C8F6CA0004B2043 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5CB9E8D32C8F6CA0004B2043 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CB9E8D22C8F6CA0004B2043 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5CB9E8A12C8F6B54004B2043 /* Project object */;
 }
