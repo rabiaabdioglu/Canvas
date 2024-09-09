@@ -10,19 +10,19 @@ import SnapKit
 
 class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
+    // MARK: - Properties
     private let canvasView = UIView()
     private let customNavBar = NavigationBar()
     private let customTabBar = TabBar()
     private var canvasItems: [CanvasItem] = []
     
-
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .clrBackground
         
         setupViews()
-        setupConstraints()
         setupCustomNavBar()
         customTabBar.delegate = self
         
@@ -31,40 +31,35 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     }
     
     deinit {
-        // Remove observer when deinitializing
         NotificationCenter.default.removeObserver(self)
     }
     
-    // MARK: - Setup views
+    // MARK: - Setup Views
     private func setupViews() {
         view.addSubview(canvasView)
-        view.addSubview(customTabBar)
-        view.addSubview(customNavBar)
-        
-        canvasView.backgroundColor = .white
-    }
-    
-    // MARK: - Setup constraints
-    private func setupConstraints() {
         canvasView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
             make.center.equalToSuperview()
         }
         
+        view.addSubview(customTabBar)
         customTabBar.snp.makeConstraints { make in
             make.left.bottom.right.equalToSuperview()
             make.height.equalTo(100)
         }
         
+        view.addSubview(customNavBar)
         customNavBar.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.height.equalTo(50)
         }
+        
+        canvasView.backgroundColor = .white
     }
-    
-    // MARK: - Setup custom navigation bar
+  
+    // MARK: - Setup Custom Navigation Bar
     private func setupCustomNavBar() {
         customNavBar.onBackButtonTapped = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
@@ -80,12 +75,12 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         }
     }
     
-    // MARK: - CustomTabBarDelegate method
+    // MARK: - CustomTabBarDelegate Method
     func customTabBarDidTapAddButton(_ tabBar: TabBar) {
         showAddButtonSheet()
     }
     
-    // MARK: - Show add button sheet
+    // MARK: - Show Add Button Sheet
     private func showAddButtonSheet() {
         let popUpVC = NewLayerView()
         popUpVC.modalPresentationStyle = .pageSheet
@@ -98,23 +93,22 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         present(popUpVC, animated: true, completion: nil)
     }
     
-    // MARK: - Handle image selected notification
+    // MARK: - Handle Image Selected Notification
     @objc private func handleImageSelected(_ notification: Notification) {
         if let image = notification.userInfo?["image"] as? UIImage {
             addImageToCanvas(image: image)
         }
     }
     
-    // MARK: - Add image to canvas
+    // MARK: - Add Image to Canvas
     private func addImageToCanvas(image: UIImage) {
-        // Create new CanvasItem with a random position
         let position = CGPoint(x: CGFloat.random(in: 0...canvasView.bounds.width), y: CGFloat.random(in: 0...canvasView.bounds.height))
         let canvasItem = CanvasItem(image: image, position: position, size: CGSize(width: 100, height: 100))
         canvasItems.append(canvasItem)
         displayCanvasItem(canvasItem)
     }
     
-    // MARK: - Display canvas item
+    // MARK: - Display Canvas Item
     private func displayCanvasItem(_ item: CanvasItem) {
         let imageView = UIImageView(image: item.image)
         imageView.contentMode = .scaleAspectFit
@@ -125,8 +119,6 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
             make.center.equalToSuperview()
         }
         
-        imageView.center = item.position
-        
         // Add pan and pinch gesture recognizers to make image movable and resizable
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         imageView.addGestureRecognizer(panGesture)
@@ -136,7 +128,7 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         imageView.addGestureRecognizer(pinchGesture)
     }
     
-    // MARK: - Handle pan gesture for moving image
+    // MARK: - Handle Pan Gesture for Moving Image
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         guard let view = gesture.view else { return }
         
@@ -150,7 +142,7 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         }
     }
     
-    // MARK: - Handle pinch gesture for resizing image
+    // MARK: - Handle Pinch Gesture for Resizing Image
     @objc private func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
         guard let view = gesture.view else { return }
         
@@ -167,5 +159,5 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
 }
 
 #Preview(body: {
-CanvasPageVC()
+    CanvasPageVC()
 })

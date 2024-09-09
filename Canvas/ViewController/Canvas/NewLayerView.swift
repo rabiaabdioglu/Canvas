@@ -5,12 +5,12 @@
 //  Created by Rabia Abdioğlu on 9.09.2024.
 //
 
-
 import UIKit
 import SnapKit
 
-class NewLayerView: UIViewController ,UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+class NewLayerView: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate, CollectionSheetViewControllerDelegate {
     
+    // MARK: - Properties
     private let titleLabel = UILabel()
     private let closeButton = UIButton(type: .close)
     
@@ -21,7 +21,6 @@ class NewLayerView: UIViewController ,UIImagePickerControllerDelegate & UINaviga
     
     // MARK: - Setup View
     private func setupView() {
-        // Set background color and corner radius for the popup view
         view.backgroundColor = UIColor.clrGray2
         view.layer.cornerRadius = 5
         
@@ -88,7 +87,6 @@ class NewLayerView: UIViewController ,UIImagePickerControllerDelegate & UINaviga
             make.width.height.equalTo(view.snp.width).multipliedBy(0.2)
         }
         
-        
         // Overlay Button
         let overlayButton = CircleButtonWithText(imageName: "wand.and.stars", title: "Overlay")
         overlayButton.buttonTapped = {
@@ -101,8 +99,12 @@ class NewLayerView: UIViewController ,UIImagePickerControllerDelegate & UINaviga
             make.right.equalTo(view.snp.right).offset(-20)
             make.width.height.equalTo(view.snp.width).multipliedBy(0.2)
         }
+        
         // Drawing Button
         let drawingButton = CircleButtonWithText(imageName: "scribble", title: "Drawing")
+        drawingButton.buttonTapped = {
+            self.handleDrawingButtonTapped()
+        }
         
         view.addSubview(drawingButton)
         drawingButton.snp.makeConstraints { make in
@@ -110,72 +112,70 @@ class NewLayerView: UIViewController ,UIImagePickerControllerDelegate & UINaviga
             make.left.equalTo(view.snp.left).offset(20)
             make.width.height.equalTo(view.snp.width).multipliedBy(0.2)
         }
-        
     }
     
     // MARK: - Handle Button Tapped Functions
-
-    
     @objc private func handleVideoButtonTapped() {
-        // Video button tapped action
         print("Video button tapped")
     }
     
     @objc private func handleGifButtonTapped() {
-        // GIF button tapped action
         print("GIF button tapped")
     }
     
     @objc private func handleOverlayButtonTapped() {
-        // Overlay button tapped action
-        print("Overlay button tapped")
+        let collectionSheetVC = CollectionSheetViewController(dataType: .overlay, title: "Overlay")
+        collectionSheetVC.delegate = self
+        present(collectionSheetVC, animated: true, completion: nil)
     }
     
     @objc private func handleDrawingButtonTapped() {
-        // Drawing button tapped action
         print("Drawing button tapped")
     }
     
+    // MARK: - UIImagePickerControllerDelegate Methods
+    private func presentPhotoPicker() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
     
-    // MARK: - Handle Button Tapped Functions
-      private func presentPhotoPicker() {
-          let imagePickerController = UIImagePickerController()
-          imagePickerController.sourceType = .photoLibrary
-          imagePickerController.delegate = self
-          present(imagePickerController, animated: true, completion: nil)
-      }
-      
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: ["image": selectedImage])
+        }
+        picker.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
     
-      // MARK: - UIImagePickerControllerDelegate methods
-      func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-          if let selectedImage = info[.originalImage] as? UIImage {
-              NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: ["image": selectedImage])
-          }
-          picker.dismiss(animated: true, completion: nil)
-          dismiss(animated: true, completion: nil)
-      }
-      
-      func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-          picker.dismiss(animated: true, completion: nil)
-          dismiss(animated: true, completion: nil)
-      }
-      
     @objc private func handleCloseButtonTapped() {
-        // Close the popup
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    // MARK: - Animation when popup appear
+    // MARK: - Animation When Popup Appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Animate popup appearance
+        // Set initial position for animation
         view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
         
+        // Animate to final position
         UIView.animate(withDuration: 0.3) {
             self.view.transform = .identity
+        }
+    }
+    
+    // MARK: - CollectionSheetViewControllerDelegate Method
+    func didSelectImage(_ image: UIImage) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: ["image": image])
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

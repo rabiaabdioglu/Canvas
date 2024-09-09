@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C07D27C2C8F7CE100CC9770 /* PexelPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D27B2C8F7CE100CC9770 /* PexelPhoto.swift */; };
+		5C07D27E2C8F7CEE00CC9770 /* PexelVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D27D2C8F7CEE00CC9770 /* PexelVideo.swift */; };
+		5C07D2812C8F7D1E00CC9770 /* PexelAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D2802C8F7D1E00CC9770 /* PexelAPIService.swift */; };
+		5C07D2842C8F7D2E00CC9770 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 5C07D2832C8F7D2E00CC9770 /* Alamofire */; };
+		5C07D2882C8F7D9600CC9770 /* CollectionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D2872C8F7D9600CC9770 /* CollectionSheetViewController.swift */; };
+		5C07D28B2C8F7E7F00CC9770 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C07D28A2C8F7E7F00CC9770 /* SDWebImage */; };
+		5C07D28D2C8F7E7F00CC9770 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C07D28C2C8F7E7F00CC9770 /* SDWebImageMapKit */; };
+		5C07D2902C8F808F00CC9770 /* PexelEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D28F2C8F808F00CC9770 /* PexelEnums.swift */; };
+		5C07D2932C8F840500CC9770 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D2922C8F840500CC9770 /* PhotoCollectionViewCell.swift */; };
 		5CB9E8AD2C8F6B55004B2043 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */; };
 		5CB9E8B62C8F6B56004B2043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */; };
 		5CB9E8B92C8F6B57004B2043 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B82C8F6B57004B2043 /* Base */; };
@@ -21,6 +30,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C07D27B2C8F7CE100CC9770 /* PexelPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelPhoto.swift; sourceTree = "<group>"; };
+		5C07D27D2C8F7CEE00CC9770 /* PexelVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelVideo.swift; sourceTree = "<group>"; };
+		5C07D2802C8F7D1E00CC9770 /* PexelAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelAPIService.swift; sourceTree = "<group>"; };
+		5C07D2872C8F7D9600CC9770 /* CollectionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSheetViewController.swift; sourceTree = "<group>"; };
+		5C07D28F2C8F808F00CC9770 /* PexelEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelEnums.swift; sourceTree = "<group>"; };
+		5C07D2922C8F840500CC9770 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CB9E8A92C8F6B55004B2043 /* Canvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,13 +55,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C07D28B2C8F7E7F00CC9770 /* SDWebImage in Frameworks */,
 				5CB9E8D42C8F6CA0004B2043 /* SnapKit in Frameworks */,
+				5C07D28D2C8F7E7F00CC9770 /* SDWebImageMapKit in Frameworks */,
+				5C07D2842C8F7D2E00CC9770 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C07D27F2C8F7D0600CC9770 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5C07D2802C8F7D1E00CC9770 /* PexelAPIService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		5C07D2912C8F83ED00CC9770 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5C07D2922C8F840500CC9770 /* PhotoCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
 		5CB9E8A02C8F6B54004B2043 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +100,7 @@
 		5CB9E8AB2C8F6B55004B2043 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
+				5C07D27F2C8F7D0600CC9770 /* Service */,
 				5CB9E8C12C8F6B71004B2043 /* ViewController */,
 				5CB9E8C02C8F6B67004B2043 /* Model */,
 				5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */,
@@ -80,6 +115,9 @@
 			isa = PBXGroup;
 			children = (
 				5CB9E8C22C8F6B87004B2043 /* CanvasItem.swift */,
+				5C07D27B2C8F7CE100CC9770 /* PexelPhoto.swift */,
+				5C07D27D2C8F7CEE00CC9770 /* PexelVideo.swift */,
+				5C07D28F2C8F808F00CC9770 /* PexelEnums.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -96,8 +134,11 @@
 		5CB9E8C82C8F6BB6004B2043 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
+				5C07D2912C8F83ED00CC9770 /* CollectionViewCell */,
 				5CB9E8C92C8F6BCC004B2043 /* CustomViews */,
 				5CB9E8C62C8F6BB2004B2043 /* CanvasPageVC.swift */,
+				5CB9E8D02C8F6C6A004B2043 /* NewLayerView.swift */,
+				5C07D2872C8F7D9600CC9770 /* CollectionSheetViewController.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -107,7 +148,6 @@
 			children = (
 				5CB9E8CC2C8F6C0E004B2043 /* NavigationBar.swift */,
 				5CB9E8CE2C8F6C19004B2043 /* TabBar.swift */,
-				5CB9E8D02C8F6C6A004B2043 /* NewLayerView.swift */,
 				5CB9E8D72C8F6CB9004B2043 /* CircleButtonWithText.swift */,
 			);
 			path = CustomViews;
@@ -131,6 +171,9 @@
 			name = Canvas;
 			packageProductDependencies = (
 				5CB9E8D32C8F6CA0004B2043 /* SnapKit */,
+				5C07D2832C8F7D2E00CC9770 /* Alamofire */,
+				5C07D28A2C8F7E7F00CC9770 /* SDWebImage */,
+				5C07D28C2C8F7E7F00CC9770 /* SDWebImageMapKit */,
 			);
 			productName = Canvas;
 			productReference = 5CB9E8A92C8F6B55004B2043 /* Canvas.app */;
@@ -162,6 +205,8 @@
 			mainGroup = 5CB9E8A02C8F6B54004B2043;
 			packageReferences = (
 				5CB9E8D22C8F6CA0004B2043 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				5C07D2822C8F7D2E00CC9770 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				5C07D2892C8F7E7F00CC9770 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 5CB9E8AA2C8F6B55004B2043 /* Products */;
 			projectDirPath = "";
@@ -189,14 +234,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C07D27C2C8F7CE100CC9770 /* PexelPhoto.swift in Sources */,
 				5CB9E8D82C8F6CB9004B2043 /* CircleButtonWithText.swift in Sources */,
 				5CB9E8D12C8F6C6A004B2043 /* NewLayerView.swift in Sources */,
 				5CB9E8C72C8F6BB2004B2043 /* CanvasPageVC.swift in Sources */,
 				5CB9E8C52C8F6BA6004B2043 /* HomeVC.swift in Sources */,
 				5CB9E8CF2C8F6C19004B2043 /* TabBar.swift in Sources */,
+				5C07D2882C8F7D9600CC9770 /* CollectionSheetViewController.swift in Sources */,
+				5C07D27E2C8F7CEE00CC9770 /* PexelVideo.swift in Sources */,
+				5C07D2902C8F808F00CC9770 /* PexelEnums.swift in Sources */,
 				5CB9E8AD2C8F6B55004B2043 /* AppDelegate.swift in Sources */,
 				5CB9E8CD2C8F6C0E004B2043 /* NavigationBar.swift in Sources */,
+				5C07D2932C8F840500CC9770 /* PhotoCollectionViewCell.swift in Sources */,
 				5CB9E8C32C8F6B87004B2043 /* CanvasItem.swift in Sources */,
+				5C07D2812C8F7D1E00CC9770 /* PexelAPIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +470,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5C07D2822C8F7D2E00CC9770 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		5C07D2892C8F7E7F00CC9770 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.7;
+			};
+		};
 		5CB9E8D22C8F6CA0004B2043 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -430,6 +497,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5C07D2832C8F7D2E00CC9770 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C07D2822C8F7D2E00CC9770 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		5C07D28A2C8F7E7F00CC9770 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C07D2892C8F7E7F00CC9770 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		5C07D28C2C8F7E7F00CC9770 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C07D2892C8F7E7F00CC9770 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
 		5CB9E8D32C8F6CA0004B2043 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5CB9E8D22C8F6CA0004B2043 /* XCRemoteSwiftPackageReference "SnapKit" */;
