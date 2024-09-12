@@ -23,6 +23,11 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     private var redoStack: [CanvasItemState] = []
     
     private var prevCanvasItem : CanvasItem?
+    
+    var gridLineCount: Int = 4
+    var canvasWidth: CGFloat = 1920
+    var canvasHeight: CGFloat = 1080
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,21 +80,22 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.3)
+            make.height.equalTo(400)
             make.center.equalToSuperview()
         }
         
         scrollView.addSubview(canvasContentView)
         canvasContentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.width.equalTo(view).multipliedBy(2)
-            make.height.equalToSuperview()
+            make.width.equalTo(canvasWidth)
+            make.height.equalTo(canvasHeight)
         }
         
         scrollView.isScrollEnabled = true
         scrollView.showsHorizontalScrollIndicator = true
-        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = true
         scrollView.backgroundColor = .separator
+        scrollView.indicatorStyle = .black
         canvasContentView.backgroundColor = .white
         
         // Draw grid
@@ -98,16 +104,15 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     
     // MARK: - Draw Grid Lines
     private func drawGridLines() {
-        let numberOfLines = 3
         let lineWidth: CGFloat = 1
         let lineColor = UIColor.gray
         
-        let lineSpacing = canvasContentView.bounds.width / CGFloat(numberOfLines + 1)
+        let lineSpacing = canvasContentView.bounds.width / CGFloat(gridLineCount + 1)
         
         let linesLayer = CAShapeLayer()
         let path = UIBezierPath()
         
-        for i in 1...numberOfLines {
+        for i in 1...gridLineCount {
             let x = CGFloat(i) * lineSpacing
             path.move(to: CGPoint(x: x, y: 0))
             path.addLine(to: CGPoint(x: x, y: canvasContentView.bounds.height))
@@ -157,26 +162,41 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     // MARK: - Add Image to Canvas
     private func addImageToCanvas(image: UIImage) {
         let imageSize = image.size
-        
-        let maxCanvasSize: CGFloat = 150 // optinal can be change
-        
-        let scale = min(maxCanvasSize / imageSize.width, maxCanvasSize / imageSize.height, 1)
+        let maxItemSize: CGFloat = 150 // optinal can be change
+
+        let scale = min(maxItemSize / imageSize.width, maxItemSize / imageSize.height, 1)
         let scaledSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
         
-        let position = CGPoint(x: 100, y: 100)
+        let visibleRect = CGRect(
+            origin: CGPoint(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y),
+            size: scrollView.bounds.size
+        )
+
+//        Check whether the image is in a suitable position in the visible area of the canvas
+        let x = max(visibleRect.minX, min(visibleRect.maxX - scaledSize.width, visibleRect.midX - scaledSize.width / 2))
+        let y = max(visibleRect.minY, min(visibleRect.maxY - scaledSize.height, visibleRect.midY - scaledSize.height / 2))
+        
+        let position = CGPoint(x: x, y: y)
         
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(origin: position, size: scaledSize)
         
-        
-        let canvasItem = CanvasItem( position: position, size: scaledSize, imageView: imageView)
+        let canvasItem = CanvasItem(position: position, size: scaledSize, imageView: imageView)
         canvasItem.imageView?.image = image
         
         canvasItems.append(canvasItem)
         displayCanvasItem(canvasItem)
         saveState(for: canvasItem)
         
+        updateCanvasPositionForVisibleArea()
     }
+
+    private func updateCanvasPositionForVisibleArea() {
+        // Güncellenmiş canvas konumunu görünür alan içinde tutmak için gerekli kodlar
+        // Örneğin, canvas'ın `contentOffset` ve `bounds`'ını kontrol edin.
+        // Bu, canvas içindeki tüm öğelerin kullanıcı tarafından görülebilen alan içinde kalmasını sağlar.
+    }
+
     
     // MARK: - Select/Deselect Image
     private func selectImage(_ imageView: UIImageView) {
@@ -233,7 +253,7 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         undoStack.append(state)
         redoStack.removeAll()
         updateUndoRedoButtons()
-
+        
     }
     
     private func removeCanvasItem(withID id: String) {
@@ -277,10 +297,10 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         
     }
     private func updateUndoRedoButtons() {
-          let undoAvailable = !undoStack.isEmpty
-          let redoAvailable = !redoStack.isEmpty
-          customNavBar.updateUndoRedoButtons(undoAvailable: undoAvailable, redoAvailable: redoAvailable)
-      }
+        let undoAvailable = !undoStack.isEmpty
+        let redoAvailable = !redoStack.isEmpty
+        customNavBar.updateUndoRedoButtons(undoAvailable: undoAvailable, redoAvailable: redoAvailable)
+    }
     
     private func updateCanvasItem(_ item: CanvasItem) {
         print("\nUpdating Item Position: \(item.position)")
@@ -340,7 +360,7 @@ extension CanvasPageVC {
             canvasItem.position = view.center
             prevCanvasItem = canvasItem
         }
-    
+        
         drawSnapLines()
     }
     
