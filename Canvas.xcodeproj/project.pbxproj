@@ -16,6 +16,7 @@
 		5C07D28D2C8F7E7F00CC9770 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C07D28C2C8F7E7F00CC9770 /* SDWebImageMapKit */; };
 		5C07D2902C8F808F00CC9770 /* PexelEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D28F2C8F808F00CC9770 /* PexelEnums.swift */; };
 		5C07D2932C8F840500CC9770 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07D2922C8F840500CC9770 /* PhotoCollectionViewCell.swift */; };
+		5C3A300B2C91E08C00A10F58 /* SnapLineDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3A300A2C91E08C00A10F58 /* SnapLineDrawer.swift */; };
 		5CB9E8AD2C8F6B55004B2043 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */; };
 		5CB9E8B62C8F6B56004B2043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */; };
 		5CB9E8B92C8F6B57004B2043 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 5CB9E8B82C8F6B57004B2043 /* Base */; };
@@ -36,6 +37,7 @@
 		5C07D2872C8F7D9600CC9770 /* CollectionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSheetViewController.swift; sourceTree = "<group>"; };
 		5C07D28F2C8F808F00CC9770 /* PexelEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelEnums.swift; sourceTree = "<group>"; };
 		5C07D2922C8F840500CC9770 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		5C3A300A2C91E08C00A10F58 /* SnapLineDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapLineDrawer.swift; sourceTree = "<group>"; };
 		5CB9E8A92C8F6B55004B2043 /* Canvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CB9E8AC2C8F6B55004B2043 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CB9E8B52C8F6B56004B2043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				5C07D2802C8F7D1E00CC9770 /* PexelAPIService.swift */,
+				5C3A300A2C91E08C00A10F58 /* SnapLineDrawer.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				5C07D27E2C8F7CEE00CC9770 /* PexelVideo.swift in Sources */,
 				5C07D2902C8F808F00CC9770 /* PexelEnums.swift in Sources */,
 				5CB9E8AD2C8F6B55004B2043 /* AppDelegate.swift in Sources */,
+				5C3A300B2C91E08C00A10F58 /* SnapLineDrawer.swift in Sources */,
 				5CB9E8CD2C8F6C0E004B2043 /* NavigationBar.swift in Sources */,
 				5C07D2932C8F840500CC9770 /* PhotoCollectionViewCell.swift in Sources */,
 				5CB9E8C32C8F6B87004B2043 /* CanvasItem.swift in Sources */,

@@ -7,37 +7,17 @@
 
 import Foundation
 import UIKit
-struct CanvasItem {
-    var image: UIImage
-    var position: CGPoint {
-        didSet {
-            updateBounds()
-        }
-    }
-    var size: CGSize {
-        didSet {
-            updateBounds()
-        }
-    }
-    var minX: CGFloat
-    var maxX: CGFloat
-    var minY: CGFloat
-    var maxY: CGFloat
-    
-    init(image: UIImage, position: CGPoint, size: CGSize) {
+
+class CanvasItem {
+    let image: UIImage
+    let position: CGPoint
+    var size: CGSize
+    weak var imageView: UIImageView? // Referansı zayıf (weak) olarak tutun
+
+    init(image: UIImage, position: CGPoint, size: CGSize, imageView: UIImageView?) {
         self.image = image
         self.position = position
         self.size = size
-        self.minX = position.x
-        self.maxX = position.x + size.width
-        self.minY = position.y
-        self.maxY = position.y + size.height
-    }
-    
-    mutating func updateBounds() {
-        self.minX = position.x
-        self.maxX = position.x + size.width
-        self.minY = position.y
-        self.maxY = position.y + size.height
+        self.imageView = imageView
     }
 }

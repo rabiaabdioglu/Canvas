@@ -18,6 +18,18 @@ class NewLayerView: UIViewController, UIImagePickerControllerDelegate & UINaviga
         super.viewDidLoad()
         setupView()
     }
+    // MARK: - Animation When Popup Appears
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Set initial position for animation
+        view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
+        
+        // Animate to final position
+        UIView.animate(withDuration: 0.3) {
+            self.view.transform = .identity
+        }
+    }
     
     // MARK: - Setup View
     private func setupView() {
@@ -133,6 +145,25 @@ class NewLayerView: UIViewController, UIImagePickerControllerDelegate & UINaviga
         print("Drawing button tapped")
     }
     
+
+    
+    @objc private func handleCloseButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+
+    
+    // MARK: - CollectionSheetViewControllerDelegate Method
+    func didSelectImage(_ image: UIImage) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: ["image": image])
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: - Image Picker
+extension NewLayerView {
     // MARK: - UIImagePickerControllerDelegate Methods
     private func presentPhotoPicker() {
         let imagePickerController = UIImagePickerController()
@@ -153,33 +184,7 @@ class NewLayerView: UIViewController, UIImagePickerControllerDelegate & UINaviga
         picker.dismiss(animated: true, completion: nil)
         dismiss(animated: true, completion: nil)
     }
-    
-    @objc private func handleCloseButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - Animation When Popup Appears
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Set initial position for animation
-        view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
-        
-        // Animate to final position
-        UIView.animate(withDuration: 0.3) {
-            self.view.transform = .identity
-        }
-    }
-    
-    // MARK: - CollectionSheetViewControllerDelegate Method
-    func didSelectImage(_ image: UIImage) {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: ["image": image])
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
 }
-
 #Preview(body: {
     NewLayerView()
 })
