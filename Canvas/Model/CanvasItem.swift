@@ -7,17 +7,22 @@
 
 import Foundation
 import UIKit
-
 class CanvasItem {
-    let image: UIImage
-    let position: CGPoint
+    var id: UUID
+    var position: CGPoint
     var size: CGSize
     weak var imageView: UIImageView? // Referansı zayıf (weak) olarak tutun
 
-    init(image: UIImage, position: CGPoint, size: CGSize, imageView: UIImageView?) {
-        self.image = image
+    init(position: CGPoint, size: CGSize, imageView: UIImageView?) {
+        self.id = UUID()
         self.position = position
         self.size = size
         self.imageView = imageView
     }
+}
+// Undo/Redo için daha basit bir yapı
+struct CanvasItemState {
+    let id: String
+    let position: CGPoint
+    let size: CGSize
 }

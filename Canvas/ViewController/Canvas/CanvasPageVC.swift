@@ -11,17 +11,23 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     // MARK: - Properties
     private let scrollView = UIScrollView()
     private let canvasContentView = UIView()
+    private var selectedImageView: UIImageView?
+    
     private let customNavBar = NavigationBar()
     private let customTabBar = TabBar()
     private var canvasItems: [CanvasItem] = []
-    private var selectedImageView: UIImageView?
     private var snapLineDrawer: SnapLineDrawer?
-
+    
+    // Undo/Redo stack
+    private var undoStack: [CanvasItemState] = []
+    private var redoStack: [CanvasItemState] = []
+    
+    private var prevCanvasItem : CanvasItem?
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clrBackground
-        
+        navigationController?.navigationBar.isHidden = true
         setupViews()
         setupCustomNavBar()
         
@@ -37,11 +43,12 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutside(_:)))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+        updateContentSize()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         drawGridLines()
     }
     
@@ -91,7 +98,7 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     // MARK: - Draw Grid Lines
     private func drawGridLines() {
         let numberOfLines = 3
-        let lineWidth: CGFloat = 2
+        let lineWidth: CGFloat = 1
         let lineColor = UIColor.gray
         
         let lineSpacing = canvasContentView.bounds.width / CGFloat(numberOfLines + 1)
@@ -118,10 +125,10 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
             self?.navigationController?.popViewController(animated: true)
         }
         customNavBar.onUndoButtonTapped = {
-            // Implement undo functionality
+            self.undo()
         }
         customNavBar.onRedoButtonTapped = {
-            // Implement redo functionality
+            self.redo()
         }
         customNavBar.onNextButtonTapped = {
             // Implement next functionality
@@ -148,14 +155,26 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     
     // MARK: - Add Image to Canvas
     private func addImageToCanvas(image: UIImage) {
-        let position = CGPoint(x: CGFloat.random(in: 0...canvasContentView.bounds.width), y: CGFloat.random(in: 0...canvasContentView.bounds.height))
-        let size = CGSize(width: 100, height: 100)
+        let imageSize = image.size
+        
+        let maxCanvasSize: CGFloat = 150 // optinal can be change
+        
+        let scale = min(maxCanvasSize / imageSize.width, maxCanvasSize / imageSize.height, 1)
+        let scaledSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
+        
+        let position = CGPoint(x: 100, y: 100)
+        
         let imageView = UIImageView(image: image)
-
-        let canvasItem = CanvasItem(image: image, position: position, size: size, imageView: imageView)
+        imageView.frame = CGRect(origin: position, size: scaledSize)
+        
+        
+        let canvasItem = CanvasItem( position: position, size: scaledSize, imageView: imageView)
+        canvasItem.imageView?.image = image
+        
         canvasItems.append(canvasItem)
         displayCanvasItem(canvasItem)
-        updateContentSize()
+        saveState(for: canvasItem)
+        
     }
     
     // MARK: - Select/Deselect Image
@@ -183,22 +202,19 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         imageView.contentMode = .scaleToFill
         canvasContentView.addSubview(imageView)
         
-        imageView.snp.makeConstraints { make in
-            make.size.equalTo(item.size)
-            make.center.equalToSuperview()
-        }
+        imageView.layer.position = item.position
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         imageView.addGestureRecognizer(panGesture)
         imageView.isUserInteractionEnabled = true
-
+        
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
         imageView.addGestureRecognizer(pinchGesture)
-
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOnImage(_:)))
         imageView.addGestureRecognizer(tapGesture)
     }
-
+    
     // MARK: - Update Content Size of the Scroll View
     private func updateContentSize() {
         let contentSize = CGSize(width: canvasContentView.bounds.width, height: canvasContentView.bounds.height)
@@ -209,6 +225,58 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
     private func drawSnapLines() {
         snapLineDrawer?.drawSnapLines(canvasItems: canvasItems)
     }
+    
+    // MARK: UNDO REDO
+    private func saveState(for item: CanvasItem) {
+        let state = CanvasItemState(id: item.id.uuidString, position: item.position, size: item.size)
+        undoStack.append(state)
+        redoStack.removeAll()
+    }
+    
+    private func removeCanvasItem(withID id: String) {
+        if let index = canvasItems.firstIndex(where: { $0.id.uuidString == id }) {
+            let item = canvasItems.remove(at: index)
+            item.imageView?.removeFromSuperview()
+            canvasContentView.layoutIfNeeded()
+        }
+    }
+    
+    func undo() {
+        if undoStack.count != 0 {
+            guard let lastState = undoStack.popLast() else { return }
+            redoStack.append(CanvasItemState(id: lastState.id, position: lastState.position, size: lastState.size))
+            print("last p : \(undoStack.count)")
+            print("last p : \(redoStack.count)")
+            if let item = canvasItems.first(where: { $0.id.uuidString == lastState.id }) {
+                item.position = lastState.position
+                item.size = lastState.size
+                item.imageView?.center = lastState.position
+                item.imageView?.bounds.size = lastState.size
+            }
+        }
+    }
+    func redo() {
+        if redoStack.count != 0 {
+            
+            guard let lastRedoState = redoStack.popLast() else { return }
+            undoStack.append(CanvasItemState(id: lastRedoState.id, position: lastRedoState.position, size: lastRedoState.size))
+            print("last p : \(undoStack.count)")
+            print("last p : \(redoStack.count)")
+            if let item = canvasItems.first(where: { $0.id.uuidString == lastRedoState.id }) {
+                item.position = lastRedoState.position
+                item.size = lastRedoState.size
+                item.imageView?.center = lastRedoState.position
+                item.imageView?.bounds.size = lastRedoState.size
+            }
+        }
+    }
+    
+    private func updateCanvasItem(_ item: CanvasItem) {
+        print("\nUpdating Item Position: \(item.position)")
+        item.imageView?.center = item.position
+        item.imageView?.bounds.size = item.size
+    }
+    
 }
 
 // MARK: - Handle Functions
@@ -234,10 +302,8 @@ extension CanvasPageVC {
     @objc private func handleTapOnImage(_ gesture: UITapGestureRecognizer) {
         if let tappedImageView = gesture.view as? UIImageView {
             if selectedImageView == tappedImageView {
-                // Deselect if the same image is tapped again
                 deselectImage()
             } else {
-                // Select new image
                 selectImage(tappedImageView)
             }
         }
@@ -245,17 +311,32 @@ extension CanvasPageVC {
     
     // MARK: - Handle Pan Gesture for Moving Image
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        guard let view = gesture.view as? UIImageView else { return }
+        guard let view = gesture.view as? UIImageView,
+              let canvasItem = findCanvasItem(for: view) else { return }
         
         let translation = gesture.translation(in: canvasContentView)
         let newCenter = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
         
-        let snappedCenter = snapLineDrawer?.snapToNearestGridOrItem(center: newCenter) ?? newCenter
-        
-        view.center = snappedCenter
+        view.center = newCenter
         gesture.setTranslation(.zero, in: canvasContentView)
+        
+        if gesture.state == .began {
+            if let previousItem = prevCanvasItem {
+                saveState(for: previousItem)
+            }
+        }
+        else if gesture.state == .ended {
+            canvasItem.position = view.center
+            prevCanvasItem = canvasItem
+        }
+    
         drawSnapLines()
     }
+    
+    func findCanvasItem(for view: UIImageView) -> CanvasItem? {
+        return canvasItems.first(where: { $0.imageView == view })
+    }
+    
     
     // MARK: - Handle Pinch Gesture for Resizing Image
     @objc private func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
@@ -266,7 +347,7 @@ extension CanvasPageVC {
         gesture.scale = 1.0
         
         // Update size in canvasItems
-        if let index = canvasItems.firstIndex(where: { $0.image == (view as? UIImageView)?.image }) {
+        if let index = canvasItems.firstIndex(where: { $0.imageView == view as? UIImageView }) {
             canvasItems[index].size = view.frame.size
         }
     }
