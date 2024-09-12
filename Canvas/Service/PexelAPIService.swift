@@ -14,16 +14,16 @@ class PexelsAPIService {
     static let shared = PexelsAPIService()
     private let baseURL = "https://api.pexels.com/v1"
     private let apiKey = "0rWBGhCRoFiVbbq4duycTLqsvROdrjKqHdGkciUBYdubEU21DoqNC6yY"
-    
+  
     // MARK: - Fetch Curated Photos
-    func fetchCuratedPhotos(perPage: Int, completion: @escaping (Result<[PexelsPhoto], Error>) -> Void) {
+    func fetchCuratedPhotos(perPage: Int, page: Int, completion: @escaping (Result<[PexelsPhoto], Error>) -> Void) {
         let url = "\(baseURL)/curated"
         let headers: HTTPHeaders = [
             "Authorization": apiKey
         ]
         let parameters: [String: Any] = [
             "per_page": perPage,
-            "page": 1
+            "page": page
         ]
         
         AF.request(url, parameters: parameters, headers: headers)
@@ -39,13 +39,14 @@ class PexelsAPIService {
     }
 
     // MARK: - Fetch Popular Videos
-    func fetchPopularVideos(perPage: Int, completion: @escaping (Result<[PexelsVideo], Error>) -> Void) {
+    func fetchPopularVideos(perPage: Int, page: Int, completion: @escaping (Result<[PexelsVideo], Error>) -> Void) {
         let url = "\(baseURL)/videos/popular"
         let headers: HTTPHeaders = [
             "Authorization": apiKey
         ]
         let parameters: [String: Any] = [
-            "per_page": perPage
+            "per_page": perPage,
+            "page": page
         ]
         
         AF.request(url, parameters: parameters, headers: headers)
@@ -59,4 +60,7 @@ class PexelsAPIService {
                 }
             }
     }
-}
+
+    
+    }
+

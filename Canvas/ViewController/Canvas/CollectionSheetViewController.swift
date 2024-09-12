@@ -15,7 +15,7 @@ protocol CollectionSheetViewControllerDelegate: AnyObject {
 }
 
 class CollectionSheetViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
     // MARK: - Properties
     private var items: [AnyItem] = []
     private var collectionView: UICollectionView!
@@ -23,15 +23,19 @@ class CollectionSheetViewController: UIViewController, UICollectionViewDelegate,
     private let titleLabel = UILabel()
     private let closeButton = UIButton()
     
-    weak var delegate: CollectionSheetViewControllerDelegate?
+    private var currentPage = 1
+    private var isLoading = false
+    private let itemsPerPage = 40
     
+    weak var delegate: CollectionSheetViewControllerDelegate?
+
     // MARK: - Initialization
     init(dataType: DataType, title: String) {
         self.dataType = dataType
         self.titleLabel.text = title
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -42,7 +46,7 @@ class CollectionSheetViewController: UIViewController, UICollectionViewDelegate,
         view.backgroundColor = .clrGray
         setupUI()
         setupCollectionView()
-        fetchData()
+        fetchData(page: currentPage)
     }
     
     // MARK: - Setup UI
@@ -94,28 +98,41 @@ class CollectionSheetViewController: UIViewController, UICollectionViewDelegate,
     }
     
     // MARK: - Fetch Data
-    private func fetchData() {
+    private func fetchData(page: Int) {
+        guard !isLoading else { return }
+        isLoading = true
+        
         switch dataType {
         case .photo, .overlay:
-            PexelsAPIService.shared.fetchCuratedPhotos(perPage: 20) { [weak self] result in
+            PexelsAPIService.shared.fetchCuratedPhotos(perPage: itemsPerPage, page: page) { [weak self] result in
                 switch result {
                 case .success(let photos):
-                    self?.items = photos.map { AnyItem.photo($0) }
+                    if page == 1 {
+                        self?.items = photos.map { AnyItem.photo($0) }
+                    } else {
+                        self?.items.append(contentsOf: photos.map { AnyItem.photo($0) })
+                    }
                     self?.collectionView.reloadData()
                 case .failure(let error):
                     print("Failed to fetch photos: \(error)")
                 }
+                self?.isLoading = false
             }
             
         case .video:
-            PexelsAPIService.shared.fetchPopularVideos(perPage: 20) { [weak self] result in
+            PexelsAPIService.shared.fetchPopularVideos(perPage: itemsPerPage, page: page) { [weak self] result in
                 switch result {
                 case .success(let videos):
-                    self?.items = videos.map { AnyItem.video($0) }
+                    if page == 1 {
+                        self?.items = videos.map { AnyItem.video($0) }
+                    } else {
+                        self?.items.append(contentsOf: videos.map { AnyItem.video($0) })
+                    }
                     self?.collectionView.reloadData()
                 case .failure(let error):
                     print("Failed to fetch videos: \(error)")
                 }
+                self?.isLoading = false
             }
         }
     }
@@ -166,6 +183,19 @@ class CollectionSheetViewController: UIViewController, UICollectionViewDelegate,
                 print("Selected video URL: \(url)")
                 self.dismiss(animated: true, completion: nil)
             }
+        }
+    }
+    
+    // MARK: - ScrollView Delegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+        
+        if contentOffsetY + frameHeight > contentHeight - 100 {
+            // Near the bottom, load more data
+            currentPage += 1
+            fetchData(page: currentPage)
         }
     }
 }
