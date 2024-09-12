@@ -16,6 +16,9 @@ class NavigationBar: UIView {
     var onRedoButtonTapped: (() -> Void)?
     var onNextButtonTapped: (() -> Void)?
     
+    var undoButton : UIButton!
+    var redoButton : UIButton!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -45,13 +48,13 @@ class NavigationBar: UIView {
         undoRedoStack.spacing = 20
         addSubview(undoRedoStack)
         
-        let undoButton = UIButton(type: .system)
+        undoButton = UIButton(type: .system)
         undoButton.setImage(UIImage(systemName: "arrow.counterclockwise.circle")?.withTintColor(.clrGray, renderingMode: .alwaysOriginal), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonTapped), for: .touchUpInside)
         
         undoRedoStack.addArrangedSubview(undoButton)
         
-        let redoButton = UIButton(type: .system)
+        redoButton = UIButton(type: .system)
         redoButton.setImage(UIImage(systemName: "arrow.clockwise.circle")?.withTintColor(.clrGray, renderingMode: .alwaysOriginal), for: .normal)
         redoButton.addTarget(self, action: #selector(redoButtonTapped), for: .touchUpInside)
         
@@ -97,4 +100,21 @@ class NavigationBar: UIView {
     @objc private func nextButtonTapped() {
         onNextButtonTapped?()
     }
+    
+    // MARK: - Update button colors
+     func updateUndoRedoButtons(undoAvailable: Bool, redoAvailable: Bool) {
+         if undoAvailable {
+             undoButton.setImage(UIImage(systemName: "arrow.counterclockwise.circle")?.withTintColor(.clrFont, renderingMode: .alwaysOriginal), for: .normal)
+         }
+         else{
+             undoButton.setImage(UIImage(systemName: "arrow.counterclockwise.circle")?.withTintColor(.clrGray, renderingMode: .alwaysOriginal), for: .normal)
+         }
+         if redoAvailable {
+             redoButton.setImage(UIImage(systemName: "arrow.clockwise.circle")?.withTintColor(.clrFont, renderingMode: .alwaysOriginal), for: .normal)
+
+         }
+         else{
+             redoButton.setImage(UIImage(systemName: "arrow.clockwise.circle")?.withTintColor(.clrGray, renderingMode: .alwaysOriginal), for: .normal)
+         }
+     }
 }

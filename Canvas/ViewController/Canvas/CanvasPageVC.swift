@@ -30,6 +30,7 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         navigationController?.navigationBar.isHidden = true
         setupViews()
         setupCustomNavBar()
+        updateUndoRedoButtons()
         
         customTabBar.delegate = self
         
@@ -231,6 +232,8 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
         let state = CanvasItemState(id: item.id.uuidString, position: item.position, size: item.size)
         undoStack.append(state)
         redoStack.removeAll()
+        updateUndoRedoButtons()
+
     }
     
     private func removeCanvasItem(withID id: String) {
@@ -253,6 +256,7 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
                 item.imageView?.center = lastState.position
                 item.imageView?.bounds.size = lastState.size
             }
+            updateUndoRedoButtons()
         }
     }
     func redo() {
@@ -268,8 +272,15 @@ class CanvasPageVC: UIViewController, TabBarDelegate, UIImagePickerControllerDel
                 item.imageView?.center = lastRedoState.position
                 item.imageView?.bounds.size = lastRedoState.size
             }
+            updateUndoRedoButtons()
         }
+        
     }
+    private func updateUndoRedoButtons() {
+          let undoAvailable = !undoStack.isEmpty
+          let redoAvailable = !redoStack.isEmpty
+          customNavBar.updateUndoRedoButtons(undoAvailable: undoAvailable, redoAvailable: redoAvailable)
+      }
     
     private func updateCanvasItem(_ item: CanvasItem) {
         print("\nUpdating Item Position: \(item.position)")
