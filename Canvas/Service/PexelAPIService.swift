@@ -13,7 +13,7 @@ class PexelsAPIService {
     // MARK: - Properties
     static let shared = PexelsAPIService()
     private let baseURL = "https://api.pexels.com/v1"
-    private let apiKey = "0rWBGhCRoFiVbbq4duycTLqsvROdrjKqHdGkciUBYdubEU21DoqNC6yY"
+    private let apiKey = " apıkey here"
   
     // MARK: - Fetch Curated Photos
     func fetchCuratedPhotos(perPage: Int, page: Int, completion: @escaping (Result<[PexelsPhoto], Error>) -> Void) {
